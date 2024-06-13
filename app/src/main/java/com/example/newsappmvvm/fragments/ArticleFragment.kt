@@ -3,6 +3,7 @@ package com.example.newsappmvvm.fragments
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebViewClient
+import androidx.compose.material3.Snackbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.newsappmvvm.R
@@ -11,6 +12,7 @@ import com.example.newsappmvvm.databinding.FragmentArticleBinding
 import com.example.newsappmvvm.databinding.FragmentBreakingNewsBinding
 import com.example.newsappmvvm.ui.NewsActivity
 import com.example.newsappmvvm.ui.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class ArticleFragment : Fragment(R.layout.fragment_article) {
 
@@ -28,6 +30,12 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         binding?.webView?.apply {
             webViewClient = WebViewClient()
             article.url?.let { loadUrl(it) }
+        }
+
+        binding?.fab?.setOnClickListener {
+            viewModel.saveArticle(article)
+            Snackbar.make(view, "Article was successfully saved", Snackbar.LENGTH_SHORT).show()
+
         }
     }
 }
